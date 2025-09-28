@@ -9,18 +9,21 @@ services:
     volumes:
       - ghost-content-data:/var/lib/ghost/content
     environment:
-      # Core Ghost Configuration
       - NODE_ENV=production
-      - url=https://${DOMAIN:?DOMAIN environment variable is required}
-      - admin__url=${ADMIN_DOMAIN:+https://${ADMIN_DOMAIN}}
-      
+      - COMPOSE_PROFILES
+      # Core Ghost Configuration
+      - SERVICE_URL_GHOST_2368
+      - url=$SERVICE_FQDN_GHOST
+      #- url=https://${DOMAIN:?DOMAIN environment variable is required}
+      #- admin__url=${ADMIN_DOMAIN:+https://${ADMIN_DOMAIN}}
+
       # Database Configuration (preserving SERVICE_* pattern)
       - database__client=mysql
       - database__connection__host=mysql
       - database__connection__user=${SERVICE_USER_MYSQL}
       - database__connection__password=${SERVICE_PASSWORD_MYSQL}
       - database__connection__database=${MYSQL_DATABASE:-ghost}
-      
+
       # Mail Configuration (preserving existing pattern)
       - mail__transport=SMTP
       - mail__options__auth__pass=${MAIL_OPTIONS_AUTH_PASS}
@@ -29,10 +32,10 @@ services:
       - mail__options__port=${MAIL_OPTIONS_PORT:-465}
       - mail__options__service=${MAIL_OPTIONS_SERVICE:-Mailgun}
       - mail__options__host=${MAIL_OPTIONS_HOST}
-      
+
       # Enable required features for analytics and ActivityPub
       - labs__publicAPI=true
-      
+
       # Tinybird Analytics Configuration (optional)
       - tinybird__tracker__endpoint=https://${DOMAIN:?DOMAIN environment variable is required}/_tinybird/api/v1/page_hit
       - tinybird__adminToken=${TINYBIRD_ADMIN_TOKEN:-}
