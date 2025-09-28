@@ -13,7 +13,7 @@ services:
       - COMPOSE_PROFILES
       # Core Ghost Configuration
       - SERVICE_URL_GHOST_2368
-      - url=$SERVICE_FQDN_GHOST
+      - url=$DOMAIN
       #- url=https://${DOMAIN:?DOMAIN environment variable is required}
       #- admin__url=${ADMIN_DOMAIN:+https://${ADMIN_DOMAIN}}
 
@@ -70,7 +70,6 @@ services:
     volumes:
       - ghost-mysql-data:/var/lib/mysql
       - ./mysql-init:/docker-entrypoint-initdb.d
-      - ./caddy:/opt/caddy-from-wat
     environment:
       # Preserve SERVICE_* pattern for compatibility
       - MYSQL_USER=${SERVICE_USER_MYSQL}
