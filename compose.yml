@@ -12,7 +12,7 @@ services:
       - NODE_ENV=production
       - COMPOSE_PROFILES
       # Core Ghost Configuration
-      - SERVICE_URL_GHOST_2368
+      #- SERVICE_URL_GHOST_2368
       - url=$SERVICE_FQDN_GHOST
       #- url=https://${DOMAIN:?DOMAIN environment variable is required}
       #- admin__url=${ADMIN_DOMAIN:+https://${ADMIN_DOMAIN}}
