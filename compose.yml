@@ -196,13 +196,13 @@ services:
       - ghost_network
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.services.\${COOLIFY_CONTAINER_NAME}.loadbalancer.passhostheader=true'
-      - "traefik.http.services.\${COOLIFY_CONTAINER_NAME}.loadbalancer.server.port=8080"
-      - traefik.http.routers.\${COOLIFY_CONTAINER_NAME}.entrypoints=websecure
-      - 'traefik.http.routers.\$COOLIFY_CONTAINER_NAME.service=activitypub'
-      - "traefik.http.routers.\$COOLIFY_CONTAINER_NAME.tls=true"
-      - traefik.http.routers.\$COOLIFY_CONTAINER_NAME.tls.certresolver=leresolver
-      - 'traefik.http.routers.$COOLIFY_CONTAINER_NAME.rule=Host(`$DOMAIN`) && (PathPrefix(`/.ghost/activitypub/`) || Path(`/.well-known/webfinger`) || Path(`/.well-known/nodeinfo`))'
+      - 'traefik.http.services.ghost-activitypub-procrastivity.loadbalancer.passhostheader=true'
+      - 'traefik.http.services.ghost-activitypub-procrastivity.loadbalancer.server.port=8080'
+      - 'traefik.http.routers.ghost-activitypub-procrastivity.entrypoints=websecure'
+      - 'traefik.http.routers.ghost-activitypub-procrastivity.service=activitypub'
+      - 'traefik.http.routers.ghost-activitypub-procrastivity.tls=true'
+      - 'traefik.http.routers.ghost-activitypub-procrastivity.tls.certresolver=leresolver'
+      - 'traefik.http.routers.ghost-activitypub-procrastivity.rule=Host(`procrastivity.fm`) && (PathPrefix(`/.ghost/activitypub/`) || Path(`/.well-known/webfinger`) || Path(`/.well-known/nodeinfo`))'
 
   activitypub-migrate:
     image: ghcr.io/tryghost/activitypub-migrations:1.1.0@sha256:b3ab20f55d66eb79090130ff91b57fe93f8a4254b446c2c7fa4507535f503662
