@@ -13,7 +13,7 @@ services:
       - COMPOSE_PROFILES
       # Core Ghost Configuration
       - SERVICE_URL_GHOST_2368
-      - url=$DOMAIN
+      - url=https://$DOMAIN
       #- url=https://${DOMAIN:?DOMAIN environment variable is required}
       #- admin__url=${ADMIN_DOMAIN:+https://${ADMIN_DOMAIN}}
 
@@ -194,6 +194,15 @@ services:
     profiles: [activitypub]
     networks:
       - ghost_network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.$COOLIFY_CONTAINER_NAME.loadbalancer.passhostheader=true"
+      - "traefik.http.services.$COOLIFY_CONTAINER_NAME.loadbalancer.server.port=8080"
+      - "traefik.http.routers.$COOLIFY_CONTAINER_NAME.entrypoints=websecure"
+      - "traefik.http.routers.$COOLIFY_CONTAINER_NAME.service=activitypub"
+      - "traefik.http.routers.$COOLIFY_CONTAINER_NAME.tls=true"
+      - "traefik.http.routers.$COOLIFY_CONTAINER_NAME.tls.certresolver=leresolver"
+      - "traefik.http.routers.$COOLIFY_CONTAINER_NAME.rule=Host(`$DOMAIN`) && (PathPrefix(`/.ghost/activitypub/`) || Path(`/.well-known/webfinger`) || Path(`/.well-known/nodeinfo`))"
 
   activitypub-migrate:
     image: ghcr.io/tryghost/activitypub-migrations:1.1.0@sha256:b3ab20f55d66eb79090130ff91b57fe93f8a4254b446c2c7fa4507535f503662
