@@ -195,10 +195,10 @@ services:
     networks:
       - ghost_network
     labels:
-      - 'traefik.enable=true"
-      - 'traefik.http.services.$COOLIFY_CONTAINER_NAME.loadbalancer.passhostheader=true'
-      - 'traefik.http.services.$COOLIFY_CONTAINER_NAME.loadbalancer.server.port=8080'
-      - 'traefik.http.routers.$COOLIFY_CONTAINER_NAME.entrypoints=websecure'
+      - 'traefik.enable=true'
+      - 'traefik.http.services.${COOLIFY_CONTAINER_NAME}.loadbalancer.passhostheader=true'
+      - "traefik.http.services.${COOLIFY_CONTAINER_NAME}.loadbalancer.server.port=8080"
+      - traefik.http.routers.${COOLIFY_CONTAINER_NAME}.entrypoints=websecure
       - 'traefik.http.routers.$COOLIFY_CONTAINER_NAME.service=activitypub'
       - 'traefik.http.routers.$COOLIFY_CONTAINER_NAME.tls=true'
       - 'traefik.http.routers.$COOLIFY_CONTAINER_NAME.tls.certresolver=leresolver'
