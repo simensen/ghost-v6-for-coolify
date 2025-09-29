@@ -202,6 +202,7 @@ services:
       - 'traefik.http.routers.ghost-activitypub-procrastivity.tls=true'
       - 'traefik.http.routers.ghost-activitypub-procrastivity.tls.certresolver=letsencrypt'
       - 'traefik.http.routers.ghost-activitypub-procrastivity.rule=Host(`procrastivity.fm`) && (PathPrefix(`/.ghost/activitypub/`) || Path(`/.well-known/webfinger`) || Path(`/.well-known/nodeinfo`))'
+      - 'traefik.http.routers.ghost-activitypub-procrastivity.priority=500'
 
   activitypub-migrate:
     image: ghcr.io/tryghost/activitypub-migrations:1.1.0@sha256:b3ab20f55d66eb79090130ff91b57fe93f8a4254b446c2c7fa4507535f503662
